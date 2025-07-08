@@ -69,6 +69,16 @@ const Header: React.FC<HeaderProps> = ({
 
             {/* Right Actions */}
             <div className="flex items-center space-x-3">
+              {/* Admin Button - Desktop */}
+              <Button
+                variant="outline"
+                size="sm"
+                className="hidden md:inline-flex border-kija-purple text-kija-purple hover:bg-kija-purple hover:text-white text-xs px-3"
+                onClick={() => window.location.href = '/auth'}
+              >
+                Admin
+              </Button>
+
               {/* Search */}
               <Button
                 variant="ghost"
@@ -141,6 +151,12 @@ const Header: React.FC<HeaderProps> = ({
                 <a href="#sobre" className="block py-3 px-4 rounded-lg hover:bg-purple-50 text-gray-700 hover:text-kija-purple transition-all font-medium">
                   Sobre
                 </a>
+                <button 
+                  onClick={() => window.location.href = '/auth'}
+                  className="block w-full text-left py-3 px-4 rounded-lg bg-kija-purple text-white hover:bg-kija-purple-light transition-all font-medium"
+                >
+                  Painel Admin
+                </button>
               </nav>
 
               <div className="mt-8 p-4 bg-gradient-to-r from-purple-50 to-yellow-50 rounded-xl">
