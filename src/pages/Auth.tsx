@@ -134,122 +134,59 @@ const Auth = () => {
           </CardHeader>
           
           <CardContent>
-            <Tabs defaultValue="signin" className="w-full">
-              <TabsList className="grid w-full grid-cols-2">
-                <TabsTrigger value="signin">Entrar</TabsTrigger>
-                <TabsTrigger value="signup">Cadastrar</TabsTrigger>
-              </TabsList>
+            <div className="w-full">
               
-              <TabsContent value="signin" className="space-y-4 mt-6">
-                <form onSubmit={handleSignIn} className="space-y-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="email">E-mail</Label>
+              <form onSubmit={handleSignIn} className="space-y-4 mt-6">
+                <div className="space-y-2">
+                  <Label htmlFor="email">E-mail Administrativo</Label>
+                  <Input
+                    id="email"
+                    type="email"
+                    placeholder="admin@kijaacai.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                    className="h-12"
+                  />
+                </div>
+                
+                <div className="space-y-2">
+                  <Label htmlFor="password">Senha</Label>
+                  <div className="relative">
                     <Input
-                      id="email"
-                      type="email"
-                      placeholder="admin@kijaacai.com"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
+                      id="password"
+                      type={showPassword ? "text" : "password"}
+                      placeholder="••••••••"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
                       required
-                      className="h-12"
+                      className="h-12 pr-12"
                     />
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="sm"
+                      className="absolute right-2 top-1/2 -translate-y-1/2 h-8 w-8 p-0"
+                      onClick={() => setShowPassword(!showPassword)}
+                    >
+                      {showPassword ? (
+                        <EyeOff className="h-4 w-4" />
+                      ) : (
+                        <Eye className="h-4 w-4" />
+                      )}
+                    </Button>
                   </div>
-                  
-                  <div className="space-y-2">
-                    <Label htmlFor="password">Senha</Label>
-                    <div className="relative">
-                      <Input
-                        id="password"
-                        type={showPassword ? "text" : "password"}
-                        placeholder="••••••••"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                        className="h-12 pr-12"
-                      />
-                      <Button
-                        type="button"
-                        variant="ghost"
-                        size="sm"
-                        className="absolute right-2 top-1/2 -translate-y-1/2 h-8 w-8 p-0"
-                        onClick={() => setShowPassword(!showPassword)}
-                      >
-                        {showPassword ? (
-                          <EyeOff className="h-4 w-4" />
-                        ) : (
-                          <Eye className="h-4 w-4" />
-                        )}
-                      </Button>
-                    </div>
-                  </div>
-                  
-                  <Button
-                    type="submit"
-                    className="w-full btn-kija h-12 text-lg"
-                    disabled={loading}
-                  >
-                    {loading ? "Entrando..." : "Entrar"}
-                  </Button>
-                </form>
-              </TabsContent>
-              
-              <TabsContent value="signup" className="space-y-4 mt-6">
-                <form onSubmit={handleSignUp} className="space-y-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="signup-email">E-mail</Label>
-                    <Input
-                      id="signup-email"
-                      type="email"
-                      placeholder="admin@kijaacai.com"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      required
-                      className="h-12"
-                    />
-                  </div>
-                  
-                  <div className="space-y-2">
-                    <Label htmlFor="signup-password">Senha</Label>
-                    <div className="relative">
-                      <Input
-                        id="signup-password"
-                        type={showPassword ? "text" : "password"}
-                        placeholder="••••••••"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                        minLength={6}
-                        className="h-12 pr-12"
-                      />
-                      <Button
-                        type="button"
-                        variant="ghost"
-                        size="sm"
-                        className="absolute right-2 top-1/2 -translate-y-1/2 h-8 w-8 p-0"
-                        onClick={() => setShowPassword(!showPassword)}
-                      >
-                        {showPassword ? (
-                          <EyeOff className="h-4 w-4" />
-                        ) : (
-                          <Eye className="h-4 w-4" />
-                        )}
-                      </Button>
-                    </div>
-                    <p className="text-sm text-gray-500">
-                      Mínimo de 6 caracteres
-                    </p>
-                  </div>
-                  
-                  <Button
-                    type="submit"
-                    className="w-full btn-kija h-12 text-lg"
-                    disabled={loading}
-                  >
-                    {loading ? "Criando conta..." : "Criar conta"}
-                  </Button>
-                </form>
-              </TabsContent>
-            </Tabs>
+                </div>
+                
+                <Button
+                  type="submit"
+                  className="w-full btn-kija h-12 text-lg"
+                  disabled={loading}
+                >
+                  {loading ? "Entrando..." : "Entrar no Painel"}
+                </Button>
+              </form>
+            </div>
           </CardContent>
         </Card>
 

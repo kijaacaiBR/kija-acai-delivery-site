@@ -2,6 +2,7 @@
 import React from 'react';
 import { Plus, Star, Heart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useCart } from '@/contexts/CartContext';
 
 interface ProductCardProps {
   id: string;
@@ -28,7 +29,19 @@ const ProductCard: React.FC<ProductCardProps> = ({
   category = '',
   className = ''
 }) => {
+  const { addItem, getItemQuantity } = useCart();
   const discount = originalPrice ? Math.round(((originalPrice - price) / originalPrice) * 100) : 0;
+  const quantity = getItemQuantity(id);
+
+  const handleAddToCart = () => {
+    addItem({
+      productId: id,
+      name,
+      price,
+      quantity: 1,
+      image
+    });
+  };
 
   return (
     <div className={`card-kija overflow-hidden group ${className}`}>
@@ -107,10 +120,16 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
           <Button
             size="sm"
-            className="bg-gradient-to-r from-kija-purple to-kija-purple-light text-white font-semibold px-4 py-2 rounded-full shadow-kija hover:shadow-kija-lg transition-all duration-300 hover:scale-105 active:scale-95 group"
+            onClick={handleAddToCart}
+            className="bg-gradient-to-r from-kija-purple to-kija-purple-light text-white font-semibold px-4 py-2 rounded-full shadow-kija hover:shadow-kija-lg transition-all duration-300 hover:scale-105 active:scale-95 group relative"
           >
             <Plus className="w-4 h-4 mr-1 group-hover:rotate-90 transition-transform duration-300" />
             Adicionar
+            {quantity > 0 && (
+              <span className="absolute -top-2 -right-2 bg-kija-gold text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
+                {quantity}
+              </span>
+            )}
           </Button>
         </div>
       </div>

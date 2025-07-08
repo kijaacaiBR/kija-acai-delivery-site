@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Menu, ShoppingCart, User, Search, MapPin, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { useCart } from '@/contexts/CartContext';
+import CartDrawer from './CartDrawer';
 interface HeaderProps {
   cartItemsCount?: number;
   currentLocation?: string;
@@ -12,8 +14,10 @@ const Header: React.FC<HeaderProps> = ({
   currentLocation = 'São Paulo',
   onLocationClick
 }) => {
+  const { itemCount } = useCart();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isCartOpen, setIsCartOpen] = useState(false);
   return <>
       <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-gray-100 shadow-soft">
         <div className="container mx-auto px-4">
@@ -68,12 +72,21 @@ const Header: React.FC<HeaderProps> = ({
               
 
               {/* Cart */}
-              <Button variant="ghost" size="sm" className="relative w-10 h-10 p-0 hover:bg-purple-50">
-                <ShoppingCart className="w-5 h-5 text-gray-600" />
-                {cartItemsCount > 0 && <span className="absolute -top-1 -right-1 w-5 h-5 bg-kija-gold text-white text-xs rounded-full flex items-center justify-center animate-bounce-gentle">
-                    {cartItemsCount > 9 ? '9+' : cartItemsCount}
-                  </span>}
-              </Button>
+              <CartDrawer isOpen={isCartOpen} onClose={() => setIsCartOpen(false)}>
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  className="relative w-10 h-10 p-0 hover:bg-purple-50"
+                  onClick={() => setIsCartOpen(true)}
+                >
+                  <ShoppingCart className="w-5 h-5 text-gray-600" />
+                  {itemCount > 0 && (
+                    <span className="absolute -top-1 -right-1 w-5 h-5 bg-kija-gold text-white text-xs rounded-full flex items-center justify-center animate-bounce-gentle">
+                      {itemCount > 9 ? '9+' : itemCount}
+                    </span>
+                  )}
+                </Button>
+              </CartDrawer>
             </div>
           </div>
         </div>
