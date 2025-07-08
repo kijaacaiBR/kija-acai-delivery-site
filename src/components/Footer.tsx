@@ -1,10 +1,7 @@
-
 import React from 'react';
 import { MapPin, Phone, Mail, Clock, Instagram, Facebook, Truck, Shield, CreditCard } from 'lucide-react';
-
 const Footer: React.FC = () => {
-  return (
-    <footer className="bg-gray-900 text-white">
+  return <footer className="bg-gray-900 text-white">
       {/* Main Footer */}
       <div className="container mx-auto px-4 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -37,34 +34,7 @@ const Footer: React.FC = () => {
           </div>
 
           {/* Contact */}
-          <div>
-            <h4 className="text-lg font-bold mb-6">Contato</h4>
-            <div className="space-y-4">
-              <div className="flex items-center space-x-3">
-                <MapPin className="w-5 h-5 text-kija-gold" />
-                <div>
-                  <p className="text-gray-300">Rua do Açaí, 123</p>
-                  <p className="text-gray-400 text-sm">Centro - São Paulo, SP</p>
-                </div>
-              </div>
-              
-              <div className="flex items-center space-x-3">
-                <Phone className="w-5 h-5 text-kija-gold" />
-                <div>
-                  <p className="text-gray-300">(11) 99999-9999</p>
-                  <p className="text-gray-400 text-sm">WhatsApp</p>
-                </div>
-              </div>
-
-              <div className="flex items-center space-x-3">
-                <Mail className="w-5 h-5 text-kija-gold" />
-                <div>
-                  <p className="text-gray-300">contato@kijaacai.com</p>
-                  <p className="text-gray-400 text-sm">Suporte</p>
-                </div>
-              </div>
-            </div>
-          </div>
+          
 
           {/* Hours */}
           <div>
@@ -144,15 +114,11 @@ const Footer: React.FC = () => {
               <a href="#" className="text-gray-400 hover:text-white text-sm transition-colors">
                 Termos de Uso
               </a>
-              <a href="#" className="text-gray-400 hover:text-white text-sm transition-colors">
-                Fale Conosco
-              </a>
+              
             </div>
           </div>
         </div>
       </div>
-    </footer>
-  );
+    </footer>;
 };
-
 export default Footer;

@@ -1,36 +1,26 @@
-
 import React, { useState } from 'react';
 import { Menu, ShoppingCart, User, Search, MapPin, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-
 interface HeaderProps {
   cartItemsCount?: number;
   currentLocation?: string;
   onLocationClick?: () => void;
 }
-
-const Header: React.FC<HeaderProps> = ({ 
-  cartItemsCount = 0, 
+const Header: React.FC<HeaderProps> = ({
+  cartItemsCount = 0,
   currentLocation = 'São Paulo',
-  onLocationClick 
+  onLocationClick
 }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-
-  return (
-    <>
+  return <>
       <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-gray-100 shadow-soft">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
             <div className="flex items-center space-x-4">
-              <Button
-                variant="ghost"
-                size="sm"
-                className="lg:hidden"
-                onClick={() => setIsMenuOpen(true)}
-              >
+              <Button variant="ghost" size="sm" className="lg:hidden" onClick={() => setIsMenuOpen(true)}>
                 <Menu className="w-6 h-6" />
               </Button>
               
@@ -40,10 +30,7 @@ const Header: React.FC<HeaderProps> = ({
                 </div>
                 <div>
                   <h1 className="text-xl font-bold gradient-text">Kija Açaí</h1>
-                  <div 
-                    className="flex items-center space-x-1 cursor-pointer hover:text-kija-purple transition-colors"
-                    onClick={onLocationClick}
-                  >
+                  <div className="flex items-center space-x-1 cursor-pointer hover:text-kija-purple transition-colors" onClick={onLocationClick}>
                     <MapPin className="w-3 h-3 text-kija-gold" />
                     <span className="text-xs text-gray-600">{currentLocation}</span>
                   </div>
@@ -70,46 +57,22 @@ const Header: React.FC<HeaderProps> = ({
             {/* Right Actions */}
             <div className="flex items-center space-x-3">
               {/* Admin Button - Desktop */}
-              <Button
-                variant="outline"
-                size="sm"
-                className="hidden md:inline-flex border-kija-purple text-kija-purple hover:bg-kija-purple hover:text-white text-xs px-3"
-                onClick={() => window.location.href = '/auth'}
-              >
-                Admin
-              </Button>
+              
 
               {/* Search */}
-              <Button
-                variant="ghost"
-                size="sm"
-                className="w-10 h-10 p-0 hover:bg-purple-50"
-                onClick={() => setIsSearchOpen(true)}
-              >
+              <Button variant="ghost" size="sm" className="w-10 h-10 p-0 hover:bg-purple-50" onClick={() => setIsSearchOpen(true)}>
                 <Search className="w-5 h-5 text-gray-600" />
               </Button>
 
               {/* User */}
-              <Button
-                variant="ghost"
-                size="sm"
-                className="w-10 h-10 p-0 hover:bg-purple-50"
-              >
-                <User className="w-5 h-5 text-gray-600" />
-              </Button>
+              
 
               {/* Cart */}
-              <Button
-                variant="ghost"
-                size="sm"
-                className="relative w-10 h-10 p-0 hover:bg-purple-50"
-              >
+              <Button variant="ghost" size="sm" className="relative w-10 h-10 p-0 hover:bg-purple-50">
                 <ShoppingCart className="w-5 h-5 text-gray-600" />
-                {cartItemsCount > 0 && (
-                  <span className="absolute -top-1 -right-1 w-5 h-5 bg-kija-gold text-white text-xs rounded-full flex items-center justify-center animate-bounce-gentle">
+                {cartItemsCount > 0 && <span className="absolute -top-1 -right-1 w-5 h-5 bg-kija-gold text-white text-xs rounded-full flex items-center justify-center animate-bounce-gentle">
                     {cartItemsCount > 9 ? '9+' : cartItemsCount}
-                  </span>
-                )}
+                  </span>}
               </Button>
             </div>
           </div>
@@ -117,8 +80,7 @@ const Header: React.FC<HeaderProps> = ({
       </header>
 
       {/* Mobile Menu */}
-      {isMenuOpen && (
-        <div className="fixed inset-0 z-50 lg:hidden">
+      {isMenuOpen && <div className="fixed inset-0 z-50 lg:hidden">
           <div className="bg-black/50 backdrop-blur-sm absolute inset-0" onClick={() => setIsMenuOpen(false)} />
           <div className="bg-white w-80 h-full shadow-kija-lg animate-slide-in-right">
             <div className="p-6">
@@ -129,11 +91,7 @@ const Header: React.FC<HeaderProps> = ({
                   </div>
                   <h2 className="text-xl font-bold gradient-text">Kija Açaí</h2>
                 </div>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => setIsMenuOpen(false)}
-                >
+                <Button variant="ghost" size="sm" onClick={() => setIsMenuOpen(false)}>
                   <X className="w-5 h-5" />
                 </Button>
               </div>
@@ -151,10 +109,7 @@ const Header: React.FC<HeaderProps> = ({
                 <a href="#sobre" className="block py-3 px-4 rounded-lg hover:bg-purple-50 text-gray-700 hover:text-kija-purple transition-all font-medium">
                   Sobre
                 </a>
-                <button 
-                  onClick={() => window.location.href = '/auth'}
-                  className="block w-full text-left py-3 px-4 rounded-lg bg-kija-purple text-white hover:bg-kija-purple-light transition-all font-medium"
-                >
+                <button onClick={() => window.location.href = '/auth'} className="block w-full text-left py-3 px-4 rounded-lg bg-kija-purple text-white hover:bg-kija-purple-light transition-all font-medium">
                   Painel Admin
                 </button>
               </nav>
@@ -170,47 +125,31 @@ const Header: React.FC<HeaderProps> = ({
               </div>
             </div>
           </div>
-        </div>
-      )}
+        </div>}
 
       {/* Search Modal */}
-      {isSearchOpen && (
-        <div className="fixed inset-0 z-50 flex items-start justify-center pt-20 bg-black/50 backdrop-blur-sm animate-fade-in">
+      {isSearchOpen && <div className="fixed inset-0 z-50 flex items-start justify-center pt-20 bg-black/50 backdrop-blur-sm animate-fade-in">
           <div className="bg-white rounded-2xl p-6 m-4 max-w-md w-full shadow-kija-lg animate-slide-up">
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-lg font-semibold text-gray-900">Buscar produtos</h3>
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => setIsSearchOpen(false)}
-              >
+              <Button variant="ghost" size="sm" onClick={() => setIsSearchOpen(false)}>
                 <X className="w-4 h-4" />
               </Button>
             </div>
             <div className="relative">
               <Search className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
-              <Input
-                type="text"
-                placeholder="Digite o que você procura..."
-                className="pl-10 h-12 border-2 border-gray-200 focus:border-kija-purple rounded-xl"
-                autoFocus
-              />
+              <Input type="text" placeholder="Digite o que você procura..." className="pl-10 h-12 border-2 border-gray-200 focus:border-kija-purple rounded-xl" autoFocus />
             </div>
             <div className="mt-4 text-sm text-gray-600">
               <p>Produtos populares:</p>
               <div className="flex flex-wrap gap-2 mt-2">
-                {['Açaí 500ml', 'Vitamina', 'Smoothie', 'Tapioca'].map((item) => (
-                  <span key={item} className="px-3 py-1 bg-purple-50 text-kija-purple rounded-full text-xs cursor-pointer hover:bg-purple-100 transition-colors">
+                {['Açaí 500ml', 'Vitamina', 'Smoothie', 'Tapioca'].map(item => <span key={item} className="px-3 py-1 bg-purple-50 text-kija-purple rounded-full text-xs cursor-pointer hover:bg-purple-100 transition-colors">
                     {item}
-                  </span>
-                ))}
+                  </span>)}
               </div>
             </div>
           </div>
-        </div>
-      )}
-    </>
-  );
+        </div>}
+    </>;
 };
-
 export default Header;
