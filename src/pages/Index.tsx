@@ -7,6 +7,7 @@ import Categories from '@/components/Categories';
 import FeaturedProducts from '@/components/FeaturedProducts';
 import Testimonials from '@/components/Testimonials';
 import Footer from '@/components/Footer';
+import SEOHead from '@/components/SEOHead';
 
 const Index = () => {
   const [showLocationModal, setShowLocationModal] = useState(false);
@@ -38,6 +39,12 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-white">
+      <SEOHead 
+        title="Kija Açaí - Delivery de Açaí Artesanal"
+        description="O melhor açaí artesanal da cidade. Peça já o seu e receba em casa! Açaí natural, vitaminas, smoothies e sobremesas saudáveis."
+        keywords="açaí delivery, açaí artesanal, açaí natural, vitaminas, smoothies, sobremesas saudáveis, delivery saudável"
+      />
+      
       {/* Location Modal */}
       <LocationModal
         isOpen={showLocationModal}

@@ -137,7 +137,10 @@ const CartDrawer: React.FC<CartDrawerProps> = ({ isOpen, onClose, children }) =>
                 </div>
                 
                 <div className="space-y-2">
-                  <Button className="w-full btn-kija h-12 text-lg font-semibold">
+                  <Button 
+                    className="w-full btn-kija h-12 text-lg font-semibold"
+                    onClick={() => window.location.href = '/checkout'}
+                  >
                     Finalizar Pedido
                   </Button>
                   <Button
