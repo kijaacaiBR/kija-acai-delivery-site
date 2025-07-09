@@ -25,7 +25,8 @@ import {
   X,
   Tag,
   Gift,
-  Home
+  Home,
+  CreditCard
 } from 'lucide-react';
 
 interface AdminLayoutProps {
@@ -89,6 +90,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = () => {
     { icon: Package, label: 'Produtos', path: '/admin/products' },
     { icon: Tag, label: 'Categorias', path: '/admin/categories' },
     { icon: ShoppingBag, label: 'Pedidos', path: '/admin/orders' },
+    { icon: CreditCard, label: 'Pagamentos', path: '/admin/payments' },
     { icon: Image, label: 'Banners', path: '/admin/banners' },
     { icon: MessageSquare, label: 'Depoimentos', path: '/admin/testimonials' },
     { icon: Gift, label: 'Promoções', path: '/admin/promotions' },

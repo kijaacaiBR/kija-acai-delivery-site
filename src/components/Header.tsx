@@ -53,6 +53,9 @@ const Header: React.FC<HeaderProps> = ({
               <a href="#promocoes" className="text-gray-700 hover:text-kija-purple transition-colors font-medium">
                 Promoções
               </a>
+              <a href="/rastrear" className="text-gray-700 hover:text-kija-purple transition-colors font-medium">
+                Rastrear Pedido
+              </a>
               <a href="#sobre" className="text-gray-700 hover:text-kija-purple transition-colors font-medium">
                 Sobre
               </a>
@@ -118,6 +121,9 @@ const Header: React.FC<HeaderProps> = ({
                 </a>
                 <a href="#promocoes" className="block py-3 px-4 rounded-lg hover:bg-purple-50 text-gray-700 hover:text-kija-purple transition-all font-medium">
                   Promoções
+                </a>
+                <a href="/rastrear" className="block py-3 px-4 rounded-lg hover:bg-purple-50 text-gray-700 hover:text-kija-purple transition-all font-medium">
+                  Rastrear Pedido
                 </a>
                 <a href="#sobre" className="block py-3 px-4 rounded-lg hover:bg-purple-50 text-gray-700 hover:text-kija-purple transition-all font-medium">
                   Sobre

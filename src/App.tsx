@@ -10,6 +10,7 @@ import { Suspense, lazy } from "react";
 const Index = lazy(() => import("./pages/Index"));
 const Auth = lazy(() => import("./pages/Auth"));
 const Checkout = lazy(() => import("./pages/Checkout"));
+const OrderTracking = lazy(() => import("./pages/OrderTracking"));
 const AdminLayout = lazy(() => import("./components/admin/AdminLayout"));
 const Dashboard = lazy(() => import("./pages/admin/Dashboard"));
 const ProductsPage = lazy(() => import("./pages/admin/Products"));
@@ -19,6 +20,7 @@ const BannersPage = lazy(() => import("./pages/admin/Banners"));
 const TestimonialsPage = lazy(() => import("./pages/admin/Testimonials"));
 const PromotionsPage = lazy(() => import("./pages/admin/Promotions"));
 const SettingsPage = lazy(() => import("./pages/admin/Settings"));
+const PaymentGatewaysPage = lazy(() => import("./pages/admin/PaymentGateways"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 // Optimized QueryClient configuration
@@ -56,6 +58,7 @@ const App = () => (
               <Route path="/" element={<Index />} />
               <Route path="/auth" element={<Auth />} />
               <Route path="/checkout" element={<Checkout />} />
+              <Route path="/rastrear" element={<OrderTracking />} />
               <Route path="/admin" element={<AdminLayout />}>
                 <Route index element={<Dashboard />} />
                 <Route path="products" element={<ProductsPage />} />
@@ -65,6 +68,7 @@ const App = () => (
                 <Route path="testimonials" element={<TestimonialsPage />} />
                 <Route path="promotions" element={<PromotionsPage />} />
                 <Route path="settings" element={<SettingsPage />} />
+                <Route path="payments" element={<PaymentGatewaysPage />} />
               </Route>
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
