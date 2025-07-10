@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { toast } from '@/hooks/use-toast';
 import { Plus, Edit, Trash2, Search, Eye, EyeOff, Calendar, Percent } from 'lucide-react';
+import { PromotionForm } from '@/components/admin/PromotionForm';
 import {
   Table,
   TableBody,
@@ -36,6 +37,8 @@ const PromotionsPage: React.FC = () => {
   const [promotions, setPromotions] = useState<Promotion[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
+  const [formOpen, setFormOpen] = useState(false);
+  const [editingPromotion, setEditingPromotion] = useState<Promotion | null>(null);
 
   useEffect(() => {
     fetchPromotions();
@@ -161,7 +164,13 @@ const PromotionsPage: React.FC = () => {
           <h1 className="text-3xl font-bold">Promoções</h1>
           <p className="text-muted-foreground">Gerencie cupons e promoções</p>
         </div>
-        <Button className="gap-2">
+        <Button 
+          className="gap-2"
+          onClick={() => {
+            setEditingPromotion(null);
+            setFormOpen(true);
+          }}
+        >
           <Plus className="h-4 w-4" />
           Nova Promoção
         </Button>
@@ -291,7 +300,14 @@ const PromotionsPage: React.FC = () => {
                       >
                         {promotion.is_active ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                       </Button>
-                      <Button variant="ghost" size="sm">
+                      <Button 
+                        variant="ghost" 
+                        size="sm"
+                        onClick={() => {
+                          setEditingPromotion(promotion);
+                          setFormOpen(true);
+                        }}
+                      >
                         <Edit className="h-4 w-4" />
                       </Button>
                       <Button
@@ -309,6 +325,13 @@ const PromotionsPage: React.FC = () => {
           </Table>
         </CardContent>
       </Card>
+
+      <PromotionForm
+        open={formOpen}
+        onOpenChange={setFormOpen}
+        promotion={editingPromotion}
+        onSuccess={fetchPromotions}
+      />
     </div>
   );
 };

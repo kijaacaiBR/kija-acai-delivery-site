@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { toast } from '@/hooks/use-toast';
 import { Plus, Edit, Trash2, Search, Eye, EyeOff, ArrowUp, ArrowDown } from 'lucide-react';
+import { BannerForm } from '@/components/admin/BannerForm';
 import {
   Table,
   TableBody,
@@ -30,6 +31,8 @@ const BannersPage: React.FC = () => {
   const [banners, setBanners] = useState<Banner[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
+  const [formOpen, setFormOpen] = useState(false);
+  const [editingBanner, setEditingBanner] = useState<Banner | null>(null);
 
   useEffect(() => {
     fetchBanners();
@@ -151,7 +154,13 @@ const BannersPage: React.FC = () => {
           <h1 className="text-3xl font-bold">Banners</h1>
           <p className="text-muted-foreground">Gerencie os banners do site</p>
         </div>
-        <Button className="gap-2">
+        <Button 
+          className="gap-2"
+          onClick={() => {
+            setEditingBanner(null);
+            setFormOpen(true);
+          }}
+        >
           <Plus className="h-4 w-4" />
           Novo Banner
         </Button>
@@ -268,7 +277,14 @@ const BannersPage: React.FC = () => {
                       >
                         {banner.is_active ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                       </Button>
-                      <Button variant="ghost" size="sm">
+                      <Button 
+                        variant="ghost" 
+                        size="sm"
+                        onClick={() => {
+                          setEditingBanner(banner);
+                          setFormOpen(true);
+                        }}
+                      >
                         <Edit className="h-4 w-4" />
                       </Button>
                       <Button
@@ -286,6 +302,13 @@ const BannersPage: React.FC = () => {
           </Table>
         </CardContent>
       </Card>
+
+      <BannerForm
+        open={formOpen}
+        onOpenChange={setFormOpen}
+        banner={editingBanner}
+        onSuccess={fetchBanners}
+      />
     </div>
   );
 };

@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { toast } from '@/hooks/use-toast';
 import { Plus, Edit, Trash2, Search, Eye, EyeOff, Star } from 'lucide-react';
+import { TestimonialForm } from '@/components/admin/TestimonialForm';
 import {
   Table,
   TableBody,
@@ -30,6 +31,8 @@ const TestimonialsPage: React.FC = () => {
   const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
+  const [formOpen, setFormOpen] = useState(false);
+  const [editingTestimonial, setEditingTestimonial] = useState<Testimonial | null>(null);
 
   useEffect(() => {
     fetchTestimonials();
@@ -162,7 +165,13 @@ const TestimonialsPage: React.FC = () => {
           <h1 className="text-3xl font-bold">Depoimentos</h1>
           <p className="text-muted-foreground">Gerencie os depoimentos dos clientes</p>
         </div>
-        <Button className="gap-2">
+        <Button 
+          className="gap-2"
+          onClick={() => {
+            setEditingTestimonial(null);
+            setFormOpen(true);
+          }}
+        >
           <Plus className="h-4 w-4" />
           Novo Depoimento
         </Button>
@@ -264,7 +273,14 @@ const TestimonialsPage: React.FC = () => {
                       >
                         <Star className={`h-4 w-4 ${testimonial.is_featured ? 'fill-yellow-400 text-yellow-400' : ''}`} />
                       </Button>
-                      <Button variant="ghost" size="sm">
+                      <Button 
+                        variant="ghost" 
+                        size="sm"
+                        onClick={() => {
+                          setEditingTestimonial(testimonial);
+                          setFormOpen(true);
+                        }}
+                      >
                         <Edit className="h-4 w-4" />
                       </Button>
                       <Button
@@ -282,6 +298,13 @@ const TestimonialsPage: React.FC = () => {
           </Table>
         </CardContent>
       </Card>
+
+      <TestimonialForm
+        open={formOpen}
+        onOpenChange={setFormOpen}
+        testimonial={editingTestimonial}
+        onSuccess={fetchTestimonials}
+      />
     </div>
   );
 };
