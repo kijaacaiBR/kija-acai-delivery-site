@@ -23,44 +23,6 @@ const FeaturedProducts: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
 
-  // Fallback products for when database is empty
-  const fallbackProducts = [{
-    id: 'fallback-1',
-    name: 'Açaí Tradicional 500ml',
-    description: 'Açaí puro batido na hora com xarope de guaraná. O clássico que você ama!',
-    price: 15.90,
-    originalPrice: 18.90,
-    image: 'https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?w=400&h=300&fit=crop&crop=center',
-    category: 'Açaí',
-    isPopular: true,
-    rating: 4.9
-  }, {
-    id: 'fallback-2',
-    name: 'Smoothie Tropical Mix',
-    description: 'Açaí com manga, banana e leite de coco. Uma explosão de sabores tropicais!',
-    price: 18.90,
-    image: 'https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?w=400&h=300&fit=crop&crop=center',
-    category: 'Smoothie',
-    isPopular: true,
-    rating: 4.8
-  }, {
-    id: 'fallback-3',
-    name: 'Açaí Power 750ml',
-    description: 'Açaí com granola, banana, morango e mel. Perfeito para quem treina!',
-    price: 22.90,
-    originalPrice: 25.90,
-    image: 'https://images.unsplash.com/photo-1500673922987-e212871fec22?w=400&h=300&fit=crop&crop=center',
-    category: 'Açaí',
-    rating: 4.7
-  }, {
-    id: 'fallback-4',
-    name: 'Vitamina de Açaí',
-    description: 'Açaí batido com leite, banana e aveia. Nutritivo e delicioso!',
-    price: 16.90,
-    image: 'https://images.unsplash.com/photo-1721322800607-8c38375eef04?w=400&h=300&fit=crop&crop=center',
-    category: 'Vitamina',
-    rating: 4.6
-  }];
 
   useEffect(() => {
     fetchProducts();
@@ -104,8 +66,8 @@ const FeaturedProducts: React.FC = () => {
     rating: product.rating ? Number(product.rating) : 4.8
   }));
 
-  // Use real products if available, otherwise fallback
-  const displayProducts = transformedProducts.length > 0 ? transformedProducts : fallbackProducts;
+  // Use only real products from database
+  const displayProducts = transformedProducts;
   return <section className="py-16 bg-white" id="cardapio">
       <div className="container mx-auto px-4">
         {/* Header */}
@@ -148,11 +110,11 @@ const FeaturedProducts: React.FC = () => {
         </div>
 
         {/* Message when no products in database */}
-        {!loading && transformedProducts.length === 0 && (
+        {!loading && displayProducts.length === 0 && (
           <div className="text-center mb-8 p-4 bg-yellow-50 rounded-lg border border-yellow-200">
             <p className="text-yellow-800">
-              <strong>Administrador:</strong> Nenhum produto encontrado no banco de dados. 
-              Acesse o <a href="/admin" className="underline">painel administrativo</a> para adicionar produtos.
+              <strong>Administrador:</strong> Nenhum produto popular encontrado. 
+              Acesse o <a href="/admin/products" className="underline">painel administrativo</a> para adicionar produtos e marcar como populares.
             </p>
           </div>
         )}
