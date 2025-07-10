@@ -133,6 +133,16 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, [state.items]);
 
   const addItem = (item: Omit<CartItem, 'id'>) => {
+    // Validate item data
+    if (!item.productId || !item.name || item.price <= 0 || item.quantity <= 0) {
+      toast({
+        title: "Erro ao adicionar produto",
+        description: "Dados do produto inválidos.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     dispatch({ type: 'ADD_ITEM', payload: item });
     toast({
       title: "Adicionado ao carrinho!",
@@ -152,6 +162,15 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const updateQuantity = (id: string, quantity: number) => {
+    if (quantity < 0) {
+      toast({
+        title: "Quantidade inválida",
+        description: "A quantidade não pode ser negativa.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     dispatch({ type: 'UPDATE_QUANTITY', payload: { id, quantity } });
   };
 

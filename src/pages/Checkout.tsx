@@ -149,8 +149,8 @@ const Checkout = () => {
         description: `Seu pedido #${order.id.slice(0, 8)} foi enviado para a cozinha.`,
       });
 
-      // Redirect to success page or home
-      window.location.href = '/';
+      // Redirect to order confirmation page
+      window.location.href = `/confirmacao?order=${order.id}`;
 
     } catch (error) {
       console.error('Error creating order:', error);

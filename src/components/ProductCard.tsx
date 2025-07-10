@@ -34,12 +34,19 @@ const ProductCard: React.FC<ProductCardProps> = ({
   const quantity = getItemQuantity(id);
 
   const handleAddToCart = () => {
+    // Validate product data before adding to cart
+    if (!id || !name || !price || price <= 0) {
+      console.error('Invalid product data:', { id, name, price });
+      return;
+    }
+
+    const defaultImage = '/placeholder.svg';
     addItem({
       productId: id,
       name,
       price,
       quantity: 1,
-      image
+      image: image || defaultImage
     });
   };
 
@@ -48,9 +55,12 @@ const ProductCard: React.FC<ProductCardProps> = ({
       {/* Image Container */}
       <div className="relative overflow-hidden">
         <img
-          src={image}
+          src={image || '/placeholder.svg'}
           alt={name}
           className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
+          onError={(e) => {
+            e.currentTarget.src = '/placeholder.svg';
+          }}
         />
         
         {/* Badges */}

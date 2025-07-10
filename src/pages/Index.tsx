@@ -8,6 +8,7 @@ import FeaturedProducts from '@/components/FeaturedProducts';
 import Testimonials from '@/components/Testimonials';
 import Footer from '@/components/Footer';
 import SEOHead from '@/components/SEOHead';
+import CartTest from '@/components/CartTest';
 
 const Index = () => {
   const [showLocationModal, setShowLocationModal] = useState(false);
@@ -72,6 +73,13 @@ const Index = () => {
 
         {/* Testimonials */}
         <Testimonials />
+
+        {/* Cart Test Component (temporary for testing) */}
+        <div className="container mx-auto px-4 py-8">
+          <div className="flex justify-center">
+            <CartTest />
+          </div>
+        </div>
       </main>
 
       {/* Footer */}
