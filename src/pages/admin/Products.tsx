@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { toast } from '@/hooks/use-toast';
 import { Plus, Edit, Trash2, Search, Eye, EyeOff, Star } from 'lucide-react';
+import ProductForm from '@/components/admin/ProductForm';
 import {
   Table,
   TableBody,
@@ -162,10 +163,7 @@ const ProductsPage: React.FC = () => {
           <h1 className="text-3xl font-bold">Produtos</h1>
           <p className="text-muted-foreground">Gerencie seus produtos</p>
         </div>
-        <Button className="gap-2">
-          <Plus className="h-4 w-4" />
-          Novo Produto
-        </Button>
+        <ProductForm onProductCreated={fetchProducts} />
       </div>
 
       {/* Search */}
