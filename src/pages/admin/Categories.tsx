@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { toast } from '@/hooks/use-toast';
 import { Plus, Edit, Trash2, Search, Eye, EyeOff } from 'lucide-react';
+import { CategoryForm } from '@/components/admin/CategoryForm';
 import {
   Table,
   TableBody,
@@ -29,6 +30,8 @@ const CategoriesPage: React.FC = () => {
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
+  const [formOpen, setFormOpen] = useState(false);
+  const [editingCategory, setEditingCategory] = useState<Category | null>(null);
 
   useEffect(() => {
     fetchCategories();
@@ -126,7 +129,13 @@ const CategoriesPage: React.FC = () => {
           <h1 className="text-3xl font-bold">Categorias</h1>
           <p className="text-muted-foreground">Gerencie suas categorias de produtos</p>
         </div>
-        <Button className="gap-2">
+        <Button 
+          className="gap-2"
+          onClick={() => {
+            setEditingCategory(null);
+            setFormOpen(true);
+          }}
+        >
           <Plus className="h-4 w-4" />
           Nova Categoria
         </Button>
@@ -204,7 +213,14 @@ const CategoriesPage: React.FC = () => {
                       >
                         {category.is_active ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                       </Button>
-                      <Button variant="ghost" size="sm">
+                      <Button 
+                        variant="ghost" 
+                        size="sm"
+                        onClick={() => {
+                          setEditingCategory(category);
+                          setFormOpen(true);
+                        }}
+                      >
                         <Edit className="h-4 w-4" />
                       </Button>
                       <Button
@@ -222,6 +238,13 @@ const CategoriesPage: React.FC = () => {
           </Table>
         </CardContent>
       </Card>
+
+      <CategoryForm
+        open={formOpen}
+        onOpenChange={setFormOpen}
+        category={editingCategory}
+        onSuccess={fetchCategories}
+      />
     </div>
   );
 };
