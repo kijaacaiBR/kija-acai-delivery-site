@@ -7,7 +7,7 @@ export type Json =
   | Json[]
 
 export type Database = {
-  // Allows to automatically instanciate createClient with right options
+  // Allows to automatically instantiate createClient with right options
   // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
   __InternalSupabase: {
     PostgrestVersion: "12.2.3 (519615d)"
@@ -136,6 +136,7 @@ export type Database = {
       }
       orders: {
         Row: {
+          abacate_bill_id: string | null
           created_at: string
           customer_email: string
           customer_name: string
@@ -149,13 +150,17 @@ export type Database = {
           estimated_delivery: string | null
           id: string
           notes: string | null
+          payment_expires_at: string | null
           payment_method: string
+          pix_payment_url: string | null
+          pix_qr_code: string | null
           promotion_code: string | null
           status: Database["public"]["Enums"]["order_status"]
           total_amount: number
           updated_at: string
         }
         Insert: {
+          abacate_bill_id?: string | null
           created_at?: string
           customer_email: string
           customer_name: string
@@ -169,13 +174,17 @@ export type Database = {
           estimated_delivery?: string | null
           id?: string
           notes?: string | null
+          payment_expires_at?: string | null
           payment_method: string
+          pix_payment_url?: string | null
+          pix_qr_code?: string | null
           promotion_code?: string | null
           status?: Database["public"]["Enums"]["order_status"]
           total_amount: number
           updated_at?: string
         }
         Update: {
+          abacate_bill_id?: string | null
           created_at?: string
           customer_email?: string
           customer_name?: string
@@ -189,7 +198,10 @@ export type Database = {
           estimated_delivery?: string | null
           id?: string
           notes?: string | null
+          payment_expires_at?: string | null
           payment_method?: string
+          pix_payment_url?: string | null
+          pix_qr_code?: string | null
           promotion_code?: string | null
           status?: Database["public"]["Enums"]["order_status"]
           total_amount?: number

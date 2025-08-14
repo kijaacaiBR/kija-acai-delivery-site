@@ -83,6 +83,18 @@ const PaymentGatewaysPage: React.FC = () => {
       },
       icon: <QrCode className="h-6 w-6 text-purple-600" />,
       description: 'Receba pagamentos PIX com sua chave'
+    },
+    {
+      id: 'abacatepay',
+      name: 'AbacatePay',
+      type: 'pix',
+      enabled: false,
+      configuration: {
+        api_key: '',
+        webhook_secret: ''
+      },
+      icon: <QrCode className="h-6 w-6 text-green-600" />,
+      description: 'PIX automático com confirmação instantânea via AbacatePay'
     }
   ]);
 

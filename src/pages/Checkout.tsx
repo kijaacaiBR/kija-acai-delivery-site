@@ -118,7 +118,7 @@ const Checkout = () => {
           notes: data.notes || null,
           total_amount: totalWithDelivery,
           delivery_fee: deliveryFee,
-          status: 'pending' as const,
+          status: data.payment_method === 'pix' ? 'pending_payment' : 'pending',
         })
         .select()
         .single();
@@ -144,13 +144,24 @@ const Checkout = () => {
 
       // Clear cart and show success
       clearCart();
-      toast({
-        title: "Pedido realizado com sucesso!",
-        description: `Seu pedido #${order.id.slice(0, 8)} foi enviado para a cozinha.`,
-      });
-
-      // Redirect to order confirmation page
-      window.location.href = `/confirmacao?order=${order.id}`;
+      
+      if (data.payment_method === 'pix') {
+        toast({
+          title: "Pedido criado!",
+          description: "Agora finalize o pagamento via PIX.",
+        });
+        
+        // Redirect to PIX payment page
+        window.location.href = `/pagamento-pix?order=${order.id}`;
+      } else {
+        toast({
+          title: "Pedido realizado com sucesso!",
+          description: `Seu pedido #${order.id.slice(0, 8)} foi enviado para a cozinha.`,
+        });
+        
+        // Redirect to order confirmation page
+        window.location.href = `/confirmacao?order=${order.id}`;
+      }
 
     } catch (error) {
       console.error('Error creating order:', error);
