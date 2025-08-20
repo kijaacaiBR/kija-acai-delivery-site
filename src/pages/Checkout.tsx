@@ -118,7 +118,7 @@ const Checkout = () => {
           notes: data.notes || null,
           total_amount: totalWithDelivery,
           delivery_fee: deliveryFee,
-          status: data.payment_method === 'pix' ? 'pending_payment' : 'pending',
+          status: (data.payment_method === 'pix' ? 'pending_payment' : 'pending') as any,
         })
         .select()
         .single();

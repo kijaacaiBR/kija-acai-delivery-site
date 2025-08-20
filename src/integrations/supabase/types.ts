@@ -403,6 +403,7 @@ export type Database = {
         | "ready"
         | "delivered"
         | "cancelled"
+        | "pending_payment"
       promotion_type: "percentage" | "fixed_amount" | "free_shipping"
     }
     CompositeTypes: {
@@ -538,6 +539,7 @@ export const Constants = {
         "ready",
         "delivered",
         "cancelled",
+        "pending_payment",
       ],
       promotion_type: ["percentage", "fixed_amount", "free_shipping"],
     },

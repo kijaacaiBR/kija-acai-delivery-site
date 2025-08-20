@@ -12,6 +12,7 @@ const Auth = lazy(() => import("./pages/Auth"));
 const Checkout = lazy(() => import("./pages/Checkout"));
 const OrderTracking = lazy(() => import("./pages/OrderTracking"));
 const OrderConfirmation = lazy(() => import("./pages/OrderConfirmation"));
+const PixPaymentPage = lazy(() => import("./pages/PixPaymentPage"));
 const Catalogo = lazy(() => import("./pages/Catalogo"));
 const AdminLayout = lazy(() => import("./components/admin/AdminLayout"));
 const Dashboard = lazy(() => import("./pages/admin/Dashboard"));
@@ -63,6 +64,7 @@ const App = () => (
               <Route path="/catalogo" element={<Catalogo />} />
               <Route path="/rastrear" element={<OrderTracking />} />
               <Route path="/confirmacao" element={<OrderConfirmation />} />
+              <Route path="/pagamento-pix" element={<PixPaymentPage />} />
               <Route path="/admin" element={<AdminLayout />}>
                 <Route index element={<Dashboard />} />
                 <Route path="products" element={<ProductsPage />} />
