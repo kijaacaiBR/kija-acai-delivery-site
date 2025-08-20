@@ -20,7 +20,7 @@ interface PixPaymentProps {
   customerEmail: string;
   customerName: string;
   customerPhone: string;
-  customerCpf: string;
+  customerCpf?: string; // Opcional para compatibilidade
   onPaymentConfirmed: () => void;
   onPaymentCancelled: () => void;
 }
@@ -95,7 +95,7 @@ const PixPayment: React.FC<PixPaymentProps> = ({
           customerEmail,
           customerName,
           customerPhone,
-          customerCpf
+          customerCpf: customerCpf || 'N/A' // Fallback para ordens sem CPF
         }
       });
 

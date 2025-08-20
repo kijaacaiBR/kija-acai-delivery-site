@@ -13,7 +13,7 @@ interface Order {
   customer_name: string;
   customer_email: string;
   customer_phone: string;
-  customer_cpf: string;
+  customer_cpf?: string; // Opcional para compatibilidade com ordens existentes
   total_amount: number;
   status: string;
 }
