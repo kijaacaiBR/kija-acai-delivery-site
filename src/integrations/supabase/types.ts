@@ -138,6 +138,7 @@ export type Database = {
         Row: {
           abacate_bill_id: string | null
           created_at: string
+          customer_cpf: string | null
           customer_email: string
           customer_name: string
           customer_phone: string
@@ -162,6 +163,7 @@ export type Database = {
         Insert: {
           abacate_bill_id?: string | null
           created_at?: string
+          customer_cpf?: string | null
           customer_email: string
           customer_name: string
           customer_phone: string
@@ -186,6 +188,7 @@ export type Database = {
         Update: {
           abacate_bill_id?: string | null
           created_at?: string
+          customer_cpf?: string | null
           customer_email?: string
           customer_name?: string
           customer_phone?: string
