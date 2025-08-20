@@ -12,6 +12,8 @@ interface CreatePixPaymentRequest {
   description: string;
   customerEmail: string;
   customerName: string;
+  customerPhone: string;
+  customerCpf: string;
 }
 
 serve(async (req) => {
@@ -27,7 +29,7 @@ serve(async (req) => {
       { auth: { persistSession: false } }
     );
 
-    const { orderId, amount, description, customerEmail, customerName }: CreatePixPaymentRequest = await req.json();
+    const { orderId, amount, description, customerEmail, customerName, customerPhone, customerCpf }: CreatePixPaymentRequest = await req.json();
 
     console.log("Creating PIX payment for order:", orderId);
 
@@ -57,21 +59,25 @@ serve(async (req) => {
       throw new Error("API Key da AbacatePay não configurada");
     }
 
-    // Criar cobrança na AbacatePay
+    // Criar PIX QR Code na AbacatePay
     const paymentData = {
       amount: Math.round(amount * 100), // Converter para centavos
+      expiresIn: 1800, // 30 minutos em segundos
       description: description,
-      due_date: new Date(Date.now() + 30 * 60 * 1000).toISOString(), // 30 minutos
       customer: {
+        name: customerName,
+        cellphone: customerPhone,
         email: customerEmail,
-        name: customerName
+        taxId: customerCpf
       },
-      methods: ["pix"]
+      metadata: {
+        externalId: orderId
+      }
     };
 
     console.log("Sending request to AbacatePay:", paymentData);
 
-    const abacateResponse = await fetch("https://api.abacatepay.com/billing/create", {
+    const abacateResponse = await fetch("https://api.abacatepay.com/v1/pixQrCode/create", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -93,10 +99,10 @@ serve(async (req) => {
     const { error: updateError } = await supabase
       .from('orders')
       .update({
-        abacate_bill_id: abacateResult.id,
-        pix_payment_url: abacateResult.url,
-        pix_qr_code: abacateResult.pix_code || abacateResult.url,
-        payment_expires_at: new Date(Date.now() + 30 * 60 * 1000).toISOString(),
+        abacate_bill_id: abacateResult.data.id,
+        pix_payment_url: abacateResult.data.brCode,
+        pix_qr_code: abacateResult.data.brCode,
+        payment_expires_at: abacateResult.data.expiresAt,
         status: 'pending_payment'
       })
       .eq('id', orderId);
@@ -108,10 +114,11 @@ serve(async (req) => {
 
     return new Response(JSON.stringify({
       success: true,
-      billId: abacateResult.id,
-      pixUrl: abacateResult.url,
-      pixCode: abacateResult.pix_code || abacateResult.url,
-      expiresAt: new Date(Date.now() + 30 * 60 * 1000).toISOString()
+      billId: abacateResult.data.id,
+      pixUrl: abacateResult.data.brCode,
+      pixCode: abacateResult.data.brCode,
+      qrCodeImage: abacateResult.data.brCodeBase64,
+      expiresAt: abacateResult.data.expiresAt
     }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
       status: 200,

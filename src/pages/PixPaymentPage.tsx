@@ -12,6 +12,8 @@ interface Order {
   id: string;
   customer_name: string;
   customer_email: string;
+  customer_phone: string;
+  customer_cpf: string;
   total_amount: number;
   status: string;
 }
@@ -168,6 +170,8 @@ const PixPaymentPage: React.FC = () => {
               amount={order.total_amount}
               customerEmail={order.customer_email}
               customerName={order.customer_name}
+              customerPhone={order.customer_phone}
+              customerCpf={order.customer_cpf}
               onPaymentConfirmed={handlePaymentConfirmed}
               onPaymentCancelled={handlePaymentCancelled}
             />

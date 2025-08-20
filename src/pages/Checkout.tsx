@@ -22,6 +22,7 @@ const checkoutSchema = z.object({
   customer_name: z.string().min(2, 'Nome deve ter pelo menos 2 caracteres'),
   customer_email: z.string().email('Email inválido'),
   customer_phone: z.string().min(10, 'Telefone deve ter pelo menos 10 dígitos'),
+  customer_cpf: z.string().min(11, 'CPF deve ter 11 dígitos').max(14, 'CPF inválido'),
   
   // Step 2: Delivery Address
   delivery_zipcode: z.string().min(8, 'CEP deve ter 8 dígitos'),
@@ -51,6 +52,7 @@ const Checkout = () => {
       customer_name: '',
       customer_email: '',
       customer_phone: '',
+      customer_cpf: '',
       delivery_zipcode: '',
       delivery_address: '',
       delivery_neighborhood: '',
@@ -77,7 +79,7 @@ const Checkout = () => {
     
     switch (step) {
       case 1:
-        fieldsToValidate = ['customer_name', 'customer_email', 'customer_phone'];
+        fieldsToValidate = ['customer_name', 'customer_email', 'customer_phone', 'customer_cpf'];
         break;
       case 2:
         fieldsToValidate = ['delivery_zipcode', 'delivery_address', 'delivery_neighborhood', 'delivery_city'];
@@ -110,6 +112,7 @@ const Checkout = () => {
           customer_name: data.customer_name,
           customer_email: data.customer_email,
           customer_phone: data.customer_phone,
+          customer_cpf: data.customer_cpf,
           delivery_address: data.delivery_address,
           delivery_neighborhood: data.delivery_neighborhood,
           delivery_city: data.delivery_city,
@@ -262,19 +265,33 @@ const Checkout = () => {
                         )}
                       </div>
 
-                      <div>
-                        <Label htmlFor="customer_phone">Telefone/WhatsApp *</Label>
-                        <Input
-                          id="customer_phone"
-                          {...register('customer_phone')}
-                          placeholder="(11) 99999-9999"
-                        />
-                        {errors.customer_phone && (
-                          <p className="text-sm text-destructive mt-1">
-                            {errors.customer_phone.message}
-                          </p>
-                        )}
-                      </div>
+                       <div>
+                         <Label htmlFor="customer_phone">Telefone/WhatsApp *</Label>
+                         <Input
+                           id="customer_phone"
+                           {...register('customer_phone')}
+                           placeholder="(11) 99999-9999"
+                         />
+                         {errors.customer_phone && (
+                           <p className="text-sm text-destructive mt-1">
+                             {errors.customer_phone.message}
+                           </p>
+                         )}
+                       </div>
+
+                       <div>
+                         <Label htmlFor="customer_cpf">CPF *</Label>
+                         <Input
+                           id="customer_cpf"
+                           {...register('customer_cpf')}
+                           placeholder="123.456.789-01"
+                         />
+                         {errors.customer_cpf && (
+                           <p className="text-sm text-destructive mt-1">
+                             {errors.customer_cpf.message}
+                           </p>
+                         )}
+                       </div>
                     </div>
                   )}
 
@@ -392,11 +409,12 @@ const Checkout = () => {
                         <h3 className="text-lg font-semibold mb-4">Confirme seus dados</h3>
                         
                         <div className="space-y-4 text-sm">
-                          <div>
-                            <strong>Cliente:</strong> {watch('customer_name')}<br />
-                            <strong>Email:</strong> {watch('customer_email')}<br />
-                            <strong>Telefone:</strong> {watch('customer_phone')}
-                          </div>
+                           <div>
+                             <strong>Cliente:</strong> {watch('customer_name')}<br />
+                             <strong>Email:</strong> {watch('customer_email')}<br />
+                             <strong>Telefone:</strong> {watch('customer_phone')}<br />
+                             <strong>CPF:</strong> {watch('customer_cpf')}
+                           </div>
                           
                           <div>
                             <strong>Entrega:</strong><br />

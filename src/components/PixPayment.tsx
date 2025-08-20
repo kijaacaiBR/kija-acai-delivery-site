@@ -19,6 +19,8 @@ interface PixPaymentProps {
   amount: number;
   customerEmail: string;
   customerName: string;
+  customerPhone: string;
+  customerCpf: string;
   onPaymentConfirmed: () => void;
   onPaymentCancelled: () => void;
 }
@@ -26,6 +28,7 @@ interface PixPaymentProps {
 interface PaymentData {
   pixUrl: string;
   pixCode: string;
+  qrCodeImage?: string;
   expiresAt: string;
   billId: string;
 }
@@ -35,6 +38,8 @@ const PixPayment: React.FC<PixPaymentProps> = ({
   amount,
   customerEmail,
   customerName,
+  customerPhone,
+  customerCpf,
   onPaymentConfirmed,
   onPaymentCancelled
 }) => {
@@ -88,7 +93,9 @@ const PixPayment: React.FC<PixPaymentProps> = ({
           amount,
           description: `Pedido #${orderId.slice(0, 8)} - Kija Açaí`,
           customerEmail,
-          customerName
+          customerName,
+          customerPhone,
+          customerCpf
         }
       });
 
@@ -101,6 +108,7 @@ const PixPayment: React.FC<PixPaymentProps> = ({
       setPaymentData({
         pixUrl: data.pixUrl,
         pixCode: data.pixCode,
+        qrCodeImage: data.qrCodeImage,
         expiresAt: data.expiresAt,
         billId: data.billId
       });
@@ -263,9 +271,17 @@ const PixPayment: React.FC<PixPaymentProps> = ({
           <Progress value={progressPercentage} className="h-2" />
         </div>
 
-        {/* QR Code (simulado) */}
+        {/* QR Code */}
         <div className="bg-white p-4 rounded-lg border-2 border-dashed border-gray-300 text-center">
-          <QrCode className="h-32 w-32 mx-auto text-gray-400 mb-2" />
+          {paymentData.qrCodeImage ? (
+            <img 
+              src={paymentData.qrCodeImage} 
+              alt="QR Code PIX" 
+              className="w-32 h-32 mx-auto mb-2"
+            />
+          ) : (
+            <QrCode className="h-32 w-32 mx-auto text-gray-400 mb-2" />
+          )}
           <p className="text-xs text-muted-foreground">
             Escaneie este QR Code com seu app de banco
           </p>
